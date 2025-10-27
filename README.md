@@ -1,113 +1,77 @@
-VProfile DevOps Project
+# Introduction
+VProfile is a multi-tier web application designed to demonstrate a complete DevOps lifecycle — from code commit to deployment.  
+This project implements Continuous Integration, Continuous Delivery, Infrastructure as Code, and Monitoring using modern DevOps tools.
 
-VProfile is a multi-tier Java web application used to demonstrate the complete DevOps lifecycle — from code integration to automated deployment and monitoring.
-It’s a full-stack DevOps project often used for end-to-end learning and implementation.
+---
+## 🏗️ Project Architecture
 
-1️⃣ Project Overview
+### Application Components
+The VProfile app consists of five main services:
 
-This project deploys a Java-based web application with multiple components running on different servers.
-It uses DevOps tools and automation for continuous integration, delivery, and infrastructure management.
+| Component | Technology | Description |
+|------------|-------------|--------------|
+| **Nginx** | Web Server / Load Balancer | Routes traffic to the backend application servers |
+| **Tomcat** | Application Server | Hosts the Java-based web application (WAR) |
+| **RabbitMQ** | Message Broker | Handles asynchronous communication between services |
+| **Memcached** | Caching Server | Speeds up dynamic database-driven websites |
+| **MySQL** | Database | Stores persistent data for the application |
 
-2️⃣ Architecture Overview
-Application Components
-Component	Technology	Description
-Nginx	Web Server / Load Balancer	Routes incoming HTTP requests to the backend application servers
-Tomcat	Application Server	Hosts the Java-based web application (WAR file)
-RabbitMQ	Message Broker	Handles background job queues and messaging
-Memcached	Caching Server	Caches frequently accessed data to reduce database load
-MySQL	Database	Stores persistent application data
-Application Architecture Diagram (Text Format)
-               +-------------------+
-               |     Clients       |
-               +--------+----------+
-                        |
-                        v
-               +-------------------+
-               |      Nginx        |
-               | (Load Balancer)   |
-               +--------+----------+
-                        |
-                        v
-               +-------------------+
-               |     Tomcat        |
-               | (App Server)      |
-               +----+---+---+------+
-                    |   |   |
-                    |   |   |
-        +-----------+   |   +------------+
-        |               |                |
-        v               v                v
-+---------------+ +--------------+ +-------------+
-|   RabbitMQ    | |  Memcached   | |   MySQL     |
-| Message Queue | |   Caching    | |  Database   |
-+---------------+ +--------------+ +-------------+
+### Infrastructure Overview
+The architecture follows a **3-tier design**:
+Client → Nginx → Tomcat → (RabbitMQ + Memcached + MySQL)
 
-3️⃣ DevOps Pipeline Overview
-Tools and Workflow
-Stage	Tool	Description
-Source Control	Git, GitHub	Manage and version the application code
-Continuous Integration	Jenkins	Build, test, and package the application
-Artifact Repository	Nexus	Store built artifacts (WAR files)
-Configuration Management	Ansible	Provision and configure infrastructure
-Infrastructure	AWS EC2, RDS, S3, ELB	Host and scale the application
-Monitoring	Prometheus, Grafana	Collect and visualize metrics
-CI/CD Pipeline Diagram (Text Format)
-Developer
-   |
-   v
-GitHub Repository
-   |
-   v
-Jenkins (CI Server)
-   |
-   v
-Build and Test (Maven)
-   |
-   v
-Nexus (Artifact Repository)
-   |
-   v
-Ansible (Deployment Automation)
-   |
-   v
-AWS Infrastructure (EC2, RDS, etc.)
-   |
-   v
-Application Components (Nginx, Tomcat, MySQL, etc.)
+Each tier can run on a separate **VM, container, or cloud instance** (AWS EC2, for example).
 
-4️⃣ Setup Instructions
-Manual Setup
+---
 
-Clone the repository
+## ⚙️ DevOps Workflow
 
-git clone https://github.com/yourusername/vprofile-project.git
+1. **Version Control** – Source code is managed in **GitHub**.
+2. **Continuous Integration** – Code is built and tested using **Jenkins**.
+3. **Artifact Management** – Build artifacts (WAR files) are stored in **Nexus Repository**.
+4. **Configuration Management** – **Ansible** provisions and configures servers.
+5. **Containerization** – Optionally, services can be containerized using **Docker**.
+6. **Orchestration** – Deployment to environments using **Kubernetes** (optional).
+7. **Monitoring** – **Prometheus** and **Grafana** used for metrics visualization.
+
+---
+
+## 🧰 Tools & Technologies
+
+| Category | Tools |
+|-----------|--------|
+| Version Control | Git, GitHub |
+| CI/CD | Jenkins, Nexus |
+| Build | Maven |
+| Configuration Management | Ansible |
+| Cloud | AWS (EC2, RDS, S3, ELB, Route53) |
+| Containerization | Docker, Kubernetes |
+| Monitoring | Prometheus, Grafana |
+
+---
+
+# Prerequisites
+#
+- JDK 17 or 21
+- Maven 3.9
+- MySQL 8
+
+# Technologies 
+- Spring MVC
+- Spring Security
+- Spring Data JPA
+- Maven
+- JSP
+- Tomcat
+- MySQL
+- Memcached
+- Rabbitmq
+- ElasticSearch
+# Database
+Here,we used Mysql DB 
+sql dump file:
+- /src/main/resources/db_backup.sql
+- db_backup.sql file is a mysql dump file.we have to import this dump to mysql db server
+- > mysql -u <user_name> -p accounts < db_backup.sql
 
 
-Build the application using Maven
-
-mvn clean install
-
-
-Deploy the WAR file to Tomcat
-
-Start supporting services (MySQL, Memcached, RabbitMQ, Nginx)
-
-Access the application via Nginx load balancer URL
-
-Automated Setup (Recommended)
-
-Use Ansible or Jenkins pipelines to provision and deploy automatically:
-
-Ansible Playbooks:
-Configure and deploy all services in sequence (DB → Cache → Message Queue → App → Web)
-
-Jenkins Pipeline:
-Trigger build → test → deploy steps automatically when code is pushed to GitHub
-
-5️⃣ AWS Infrastructure (Example Setup)
-Layer	Service	Description
-Web Layer	Nginx on EC2	Public entry point and load balancer
-App Layer	Tomcat on EC2	Hosts application
-Cache Layer	ElastiCache (Memcached)	Cache
-Queue Layer	RabbitMQ on EC2	Messaging
-Database Layer	RDS (MySQL)	Persistent storage
