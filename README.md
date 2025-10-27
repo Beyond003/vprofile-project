@@ -18,7 +18,7 @@ The VProfile app consists of five main services:
 
 ### Infrastructure Overview
 The architecture follows a **3-tier design**:
-
+Client → Nginx → Tomcat → (RabbitMQ + Memcached + MySQL)
 
 Each tier can run on a separate **VM, container, or cloud instance** (AWS EC2, for example).
 
@@ -60,34 +60,48 @@ graph TD
   D -->|Deploy Using Ansible| E[AWS Infrastructure]
   E -->|Provision & Configure| F[Nginx + Tomcat + MySQL + RabbitMQ + Memcached]
 
+🏗️ Infrastructure Architecture
+graph TD
+  subgraph LoadBalancer
+    N[Nginx]
+  end
 
-# Architecture Overview
-# Tech Stack
-# Deployment Workflow
-# CI/CD Pipeline
-# Infrastructure Diagram
-# Steps to Run (Manual + Automated)
+  subgraph AppLayer
+    T[Tomcat Application Server]
+  end
 
+  subgraph Backend
+    R[RabbitMQ]
+    M[Memcached]
+    DB[(MySQL Database)]
+  end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  N --> T
+  T --> R
+  T --> M
+  T --> DB
 
 
+(Replace with your Draw.io or Lucidchart diagram image if desired.)
 
+🧪 Setup & Execution
+Manual Deployment
 
+Clone the repository
 
+Build the application using Maven
 
+Deploy the WAR to Tomcat
+
+Start all dependent services (MySQL, Memcached, RabbitMQ, Nginx)
+
+Automated Deployment
+
+Run Ansible playbooks from the infra repository
+
+Or use Jenkins pipeline to automate the entire process
+
+-----
 
 # Prerequisites
 #
