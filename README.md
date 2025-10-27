@@ -19,6 +19,48 @@ The VProfile app consists of five main services:
 ### Infrastructure Overview
 The architecture follows a **3-tier design**:
 
+
+Each tier can run on a separate **VM, container, or cloud instance** (AWS EC2, for example).
+
+---
+
+## ⚙️ DevOps Workflow
+
+1. **Version Control** – Source code is managed in **GitHub**.
+2. **Continuous Integration** – Code is built and tested using **Jenkins**.
+3. **Artifact Management** – Build artifacts (WAR files) are stored in **Nexus Repository**.
+4. **Configuration Management** – **Ansible** provisions and configures servers.
+5. **Containerization** – Optionally, services can be containerized using **Docker**.
+6. **Orchestration** – Deployment to environments using **Kubernetes** (optional).
+7. **Monitoring** – **Prometheus** and **Grafana** used for metrics visualization.
+
+---
+
+## 🧰 Tools & Technologies
+
+| Category | Tools |
+|-----------|--------|
+| Version Control | Git, GitHub |
+| CI/CD | Jenkins, Nexus |
+| Build | Maven |
+| Configuration Management | Ansible |
+| Cloud | AWS (EC2, RDS, S3, ELB, Route53) |
+| Containerization | Docker, Kubernetes |
+| Monitoring | Prometheus, Grafana |
+
+---
+
+## 🚀 Deployment Flow
+
+```mermaid
+graph TD
+  A[Developer] -->|Push Code| B[GitHub Repo]
+  B -->|Webhook Trigger| C[Jenkins CI Server]
+  C -->|Build & Test| D[Nexus Artifact Repository]
+  D -->|Deploy Using Ansible| E[AWS Infrastructure]
+  E -->|Provision & Configure| F[Nginx + Tomcat + MySQL + RabbitMQ + Memcached]
+
+
 # Architecture Overview
 # Tech Stack
 # Deployment Workflow
