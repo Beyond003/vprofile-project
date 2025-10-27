@@ -61,25 +61,6 @@ graph TD
   E -->|Provision & Configure| F[Nginx + Tomcat + MySQL + RabbitMQ + Memcached]
 
 🏗️ Infrastructure Architecture
-graph TD
-  subgraph LoadBalancer
-    N[Nginx]
-  end
-
-  subgraph AppLayer
-    T[Tomcat Application Server]
-  end
-
-  subgraph Backend
-    R[RabbitMQ]
-    M[Memcached]
-    DB[(MySQL Database)]
-  end
-
-  N --> T
-  T --> R
-  T --> M
-  T --> DB
 
 
 (Replace with your Draw.io or Lucidchart diagram image if desired.)
