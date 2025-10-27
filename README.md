@@ -52,16 +52,19 @@ Each tier can run on a separate **VM, container, or cloud instance** (AWS EC2, f
 
 ## 🚀 Deployment Flow
 
-```mermaid
 graph TD
-  A[Developer] -->|Push Code| B[GitHub Repo]
-  B -->|Webhook Trigger| C[Jenkins CI Server]
-  C -->|Build & Test| D[Nexus Artifact Repository]
-  D -->|Deploy Using Ansible| E[AWS Infrastructure]
-  E -->|Provision & Configure| F[Nginx + Tomcat + MySQL + RabbitMQ + Memcached]
+    A[Developer] -->|Push Code| B[GitHub Repository]
+    B -->|Webhook Trigger| C[Jenkins CI Server]
+    C -->|Build & Test| D[Nexus Repository]
+    D -->|Deploy Using Ansible| E[AWS Infrastructure]
+    E -->|Provision & Configure| F[Nginx, Tomcat, MySQL, RabbitMQ, Memcached]
 
 🏗️ Infrastructure Architecture
-
+graph TD
+    N[Nginx (Load Balancer)] --> T[Tomcat (App Server)]
+    T --> R[RabbitMQ (Message Broker)]
+    T --> M[Memcached (Cache)]
+    T --> DB[(MySQL Database)]
 
 (Replace with your Draw.io or Lucidchart diagram image if desired.)
 
